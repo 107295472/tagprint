@@ -1,0 +1,20 @@
+Host: 192.168.10.22:3306
+User: sa
+Pass: sql2014$
+Database: NetFreight20240423
+RedisAddr: 127.0.0.1:6379
+RedisPassword:
+RedisDB: 1
+LnhxUrl: https://zfw.uinll.com/
+Username: 4800988
+Password: Woe1
+Yzm: http://192.168.10.65:8849/p/yzm
+ManageHxSetTokenPosturl: SystemConfig/Admin/SetHangXinBackToken
+ManageReportScreenStatePosturl: SystemConfig/Admin/GetReportScreenState
+ManageLoginPosturl: Login/LoginAdminWeb
+ManageSetReportScreenStatePosturl: SystemConfig/Admin/SetReportScreenState?reportScreenType=hxToken
+ManageLoginName: sswl
+ManageLoginPass: VapdtY7Mozi8uODX
+ManageURL: https://mage.shwl.com/api
+Interval: 600
+HttpPort: 6541
