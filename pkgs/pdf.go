@@ -5,6 +5,7 @@ import (
 
 	"github.com/johnfercher/maroto/v2/pkg/config"
 	"github.com/johnfercher/maroto/v2/pkg/consts/align"
+	"github.com/johnfercher/maroto/v2/pkg/consts/barcode"
 	"github.com/johnfercher/maroto/v2/pkg/consts/border"
 	"github.com/johnfercher/maroto/v2/pkg/consts/fontstyle"
 	"github.com/johnfercher/maroto/v2/pkg/props"
@@ -151,6 +152,7 @@ func Brcode() {
 	m.AddRows(
 		row.New(11).Add(
 			code.NewBarCol(12, "123456789", props.Barcode{
+				Type:    barcode.Code128,
 				Percent: 100,
 				Center:  true,
 			}),
