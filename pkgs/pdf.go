@@ -8,6 +8,7 @@ import (
 	"github.com/johnfercher/maroto/v2/pkg/consts/barcode"
 	"github.com/johnfercher/maroto/v2/pkg/consts/border"
 	"github.com/johnfercher/maroto/v2/pkg/consts/fontstyle"
+	"github.com/johnfercher/maroto/v2/pkg/consts/orientation"
 	"github.com/johnfercher/maroto/v2/pkg/props"
 
 	"github.com/johnfercher/maroto/v2"
@@ -18,9 +19,9 @@ import (
 	"github.com/johnfercher/maroto/v2/pkg/repository"
 )
 
-func Genprint() string {
+func Genprint() {
 	customFont := "微软雅黑"
-	customFontFile := "E:/fonts/fonts/msyh.ttf"
+	customFontFile := "msyh.ttf"
 	customFonts, err := repository.New().
 		AddUTF8Font(customFont, fontstyle.Normal, customFontFile).
 		AddUTF8Font(customFont, fontstyle.Italic, customFontFile).
@@ -120,13 +121,13 @@ func Genprint() string {
 
 	// 保存结果
 	doc, _ := m.Generate()
-	// _ = doc.Save("weight_ticket_v2.pdf")
-	return doc.GetBase64()
+	_ = doc.Save("weight_ticket_v2.pdf")
+	// return doc.GetBase64()
 }
-func Brcode() {
+func BrcodeOld(bcode string) string {
 
 	customFont := "微软雅黑"
-	customFontFile := "E:/fonts/fonts/msyh.ttf"
+	customFontFile := "msyh.ttf"
 	customFonts, err := repository.New().
 		AddUTF8Font(customFont, fontstyle.Normal, customFontFile).
 		AddUTF8Font(customFont, fontstyle.Italic, customFontFile).
@@ -138,7 +139,8 @@ func Brcode() {
 	}
 
 	builder := config.NewBuilder().
-		WithDimensions(80, 20). // 设置页面宽高
+		WithDimensions(80, 20).
+		WithOrientation(orientation.Horizontal).
 		WithTopMargin(2).
 		WithBottomMargin(2).
 		WithLeftMargin(5).
@@ -151,18 +153,17 @@ func Brcode() {
 	m := maroto.New(cfg)
 	m.AddRows(
 		row.New(11).Add(
-			code.NewBarCol(12, "123456789", props.Barcode{
+			code.NewBarCol(12, bcode, props.Barcode{
 				Type:    barcode.Code128,
 				Percent: 100,
 				Center:  true,
 			}),
 		),
 	)
-
 	m.AddRows(
 		row.New(5).Add(
 			col.New(12).Add(
-				text.New("123456789", props.Text{
+				text.New(bcode, props.Text{
 					Size:  12,
 					Align: align.Center,
 					Top:   1,
@@ -171,5 +172,7 @@ func Brcode() {
 		),
 	)
 	doc, _ := m.Generate()
-	_ = doc.Save("brcode.pdf")
+	_ = doc.Save("fff.pdf")
+	return doc.GetBase64()
+
 }
